@@ -28,13 +28,13 @@ void add_box( struct matrix * edges,
   add_edge(edges, x, y, z, x+1, y+1, z+1);
   add_edge(edges, x+width, y, z, x+width+1, y+1, z+1);
   add_edge(edges, x, y-height, z, x+1, y-height+1, z+1);
-  add_edge(edges, x+width, y-height, z, w+width+1, y-height+1, z+1);
+  add_edge(edges, x+width, y-height, z, x+width+1, y-height+1, z+1);
 
   
   add_edge(edges, x, y, z-depth, x+1, y+1, z-depth+1);
   add_edge(edges, x+width, y, z-depth, x+width+1, y+1, z-depth+1);
   add_edge(edges, x, y-height, z-depth, x+1, y-height+1, z-depth+1);
-  add_edge(edges, x+width, y-height, z-depth, w+width+1, y-height+1, z-depth+1);
+  add_edge(edges, x+width, y-height, z-depth, x+width+1, y-height+1, z-depth+1);
 
   return;
 }
@@ -58,11 +58,11 @@ void add_sphere( struct matrix * edges,
 		 double cx, double cy, double cz,
 		 double r, double step ) {
   
-  struct * matrix sphere = generate_sphere(cx, cy, cz, r, step);
+  struct matrix * sphere = generate_sphere(cx, cy, cz, r, step);
   int point;
-  for ( point = 0; point < edges->lastcol; point += 1 ) {
-    add_edge(edges, sphere->m[0][point], sphere->m[1][point], sphere->m[2][point], sphere->m[3][point],
-	     sphere->m[0][point]+1, sphere->m[1][point]+1, sphere->m[2][point]+1, sphere->m[3][point]+1);
+  for ( point = 0; point < sphere->lastcol; point += 1 ) {
+    add_edge(edges, sphere->m[0][point], sphere->m[1][point], sphere->m[2][point], 
+	     sphere->m[0][point]+1, sphere->m[1][point]+1, sphere->m[2][point]+1);
   }
 }
 
@@ -81,21 +81,22 @@ void add_sphere( struct matrix * edges,
 struct matrix * generate_sphere(double cx, double cy, double cz,
 				double r, double step ) {
 
-  int i, j,  t0, t1;
+  int i, j;
+  double t0, t1;
   double x, y, z;
   
   int n = (int) (1/step);
 
-  struct * matrix sphere = new_matrix(4, 20);
+  struct matrix * sphere = new_matrix(4, 20);
   
   for ( i = 0; i <= n; i += 1 ) {
     t0 = (double) i / n;
     for ( j = 0; j <= n; j += 1) {
       t1 = (double) j / n;
       
-      x = r * cos( M_PI * t1 ) + cx;
-      y = r * sin( M_PI * t1 ) * cos( 2 * M_PI * t0 ) + cy;
-      z = r * sin( M_PI * t1 ) * sin( 2 * M_PI * t0 ) + cz;
+      x = r * cos(  M_PI * t1 ) + cx;
+      y = r * sin(  M_PI * t1 ) * cos( 2 * M_PI * t0 ) + cy;
+      z = r * sin(  M_PI * t1 ) * sin( 2 * M_PI * t0 ) + cz;
 
       add_point(sphere, x, y, z);
     }
