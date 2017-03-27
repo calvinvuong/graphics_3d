@@ -92,6 +92,7 @@ void parse_file ( char * filename,
     double zvals[4];
     struct matrix *tmp;
     double r;
+    double r2;
     double theta;
     char axis;
     int type;
@@ -114,6 +115,13 @@ void parse_file ( char * filename,
       sscanf(line, "%lf %lf %lf %lf",
 	     xvals, yvals, zvals, &r);
       add_sphere(edges, xvals[0], yvals[0], zvals[0], r, step);
+    }
+
+    else if ( strncmp(line, "torus", strlen(line)) == 0 ) {
+      fgets(line, sizeof(line), f);
+      sscanf(line, "%lf %lf %lf %lf %lf",
+	     xvals, yvals, zvals, &r, &r2);
+      add_torus(edges, xvals[0], yvals[0], zvals[0], r, r2, step);
     }
     
     else if ( strncmp(line, "circle", strlen(line)) == 0 ) {
