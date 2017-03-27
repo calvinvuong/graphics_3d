@@ -288,7 +288,7 @@ Inputs:  int rows
 Returns: 
 
 Once allocated, access the matrix as follows:
-m->m[r][c]=something;
+1m->m[r][c]=something;
 if (m->lastcol)... 
 */
 struct matrix *new_matrix(int rows, int cols) {
