@@ -86,3 +86,31 @@ move
 250 250 0
 apply
 display
+#draw saturn
+ident
+clear
+color
+186 20 224
+sphere
+0 0 0 75
+torus
+0 0 0 15 110
+rotate
+z 43.31
+apply
+ident
+color
+224 152 20
+sphere
+0 0 0 150
+torus
+0 0 0 25 225
+rotate
+z -26.73
+rotate
+x 16.7
+display
+move
+250 250 100
+apply
+display

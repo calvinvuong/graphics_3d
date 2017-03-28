@@ -90,6 +90,7 @@ void parse_file ( char * filename,
     double xvals[4];
     double yvals[4];
     double zvals[4];
+    int rgb[3];
     struct matrix *tmp;
     double r;
     double r2;
@@ -123,7 +124,7 @@ void parse_file ( char * filename,
 	     xvals, yvals, zvals, &r, &r2);
       add_torus(edges, xvals[0], yvals[0], zvals[0], r, r2, step);
     }
-    
+
     else if ( strncmp(line, "circle", strlen(line)) == 0 ) {
       fgets(line, sizeof(line), f);
       //printf("CIRCLE\t%s", line);
@@ -215,6 +216,15 @@ void parse_file ( char * filename,
       //printf("IDENT\t%s", line);
       ident(transform);
     }//end ident
+
+    else if ( strncmp(line, "color", strlen(line)) == 0 ) {
+      fgets(line, sizeof(line), f);
+      sscanf(line, "%d %d %d",
+	     rgb, rgb+1, rgb+2);
+      c.red = rgb[0];
+      c.green = rgb[1];
+      c.blue = rgb[2];
+    }
     
     else if ( strncmp(line, "apply", strlen(line)) == 0 ) {
       //printf("APPLY\t%s", line);
