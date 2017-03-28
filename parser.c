@@ -236,7 +236,7 @@ void parse_file ( char * filename,
       clear_screen(s);
       draw_lines(edges, s, c);
       display( s );
-    }//end display
+    }//end display    
 
     else if ( strncmp(line, "save", strlen(line)) == 0 ) {
       fgets(line, sizeof(line), f);
@@ -249,4 +249,3 @@ void parse_file ( char * filename,
     
   }
 }
-  
